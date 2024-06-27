@@ -12,7 +12,6 @@ def generate_pattern(power):
     for i in range(power + 1):
         coefficient = binomial_coefficient(power, i)
         pattern.append(coefficient)
-
     return pattern
 
 
