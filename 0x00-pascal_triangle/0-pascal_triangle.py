@@ -28,7 +28,6 @@ def binomial_coefficient(n, k):
     return binomial_coefficient(n - 1, k - 1) + binomial_coefficient(n - 1, k)
 
 
-
 def pascal_triangle(n):
     """
     Create pascal triangle
