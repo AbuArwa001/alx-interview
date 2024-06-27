@@ -5,6 +5,9 @@ Pascal triangle
 
 
 def generate_pattern(power):
+    """
+    Generate pattern
+    """
     # Initialize an empty list to store the pattern
     pattern = []
 
@@ -16,15 +19,20 @@ def generate_pattern(power):
 
 
 def binomial_coefficient(n, k):
+    """
+    Calculate binomial coefficient
+    """
     # Calculate the binomial coefficient "n choose k"
     if k == 0 or k == n:
         return 1
     return binomial_coefficient(n - 1, k - 1) + binomial_coefficient(n - 1, k)
 
-    return pattern
 
 
 def pascal_triangle(n):
+    """
+    Create pascal triangle
+    """
     pascal_triangle = []
     if n <= 0:
         return
