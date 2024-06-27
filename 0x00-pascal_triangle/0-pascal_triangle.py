@@ -17,6 +17,7 @@ def pascal_triangle(n: int) -> list[list[int]]:
 
     return triangle
 
+
 def generate_pattern(power: int) -> list[int]:
     """
     Generate a row of Pascal's Triangle using binomial coefficients.
@@ -32,6 +33,7 @@ def generate_pattern(power: int) -> list[int]:
         coefficient = binomial_coefficient(power, i)
         pattern.append(coefficient)
     return pattern
+
 
 def binomial_coefficient(n: int, k: int) -> int:
     """
@@ -50,4 +52,3 @@ def binomial_coefficient(n: int, k: int) -> int:
     for i in range(k):
         c = c * (n - i) // (i + 1)
     return c
-
