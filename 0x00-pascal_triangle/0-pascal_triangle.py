@@ -52,7 +52,7 @@ def pascal_triangle(n):
     list[list[int]]: The generated Pascal's Triangle.
     """
     pascal_triangle = []
-    if n <= 0 or not:
+    if n <= 0:
         return []
     for i in range(n):
         pascal_triangle.append(generate_pattern(i))
