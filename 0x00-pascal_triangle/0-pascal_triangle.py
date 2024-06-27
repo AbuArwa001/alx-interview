@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""
+Pascal triangle
+"""
+
+
 def pascal_triangle(n: int) -> list[list[int]]:
     """
     Create Pascal's Triangle up to the nth row.
