@@ -34,7 +34,7 @@ def pascal_triangle(n):
     """
     pascal_triangle = []
     if n <= 0:
-        return
+        return []
     for i in range(n):
         pascal_triangle.append(generate_pattern(i))
     return pascal_triangle
