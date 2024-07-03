@@ -2,9 +2,12 @@
 """
 Module will Check if all boxes can be opened
 """
+
+
 def append_lst_ls(my_list, element_to_add):
     """
-    Appends elements from element_to_add to my_list if they are not already in my_list and are not zero.
+    Appends elements from element_to_add to my_list if they are
+    not already in my_list and are not zero.
 
     Args:
     my_list (list): The list to which elements will be added.
@@ -18,12 +21,14 @@ def append_lst_ls(my_list, element_to_add):
             my_list.append(i)
     return my_list
 
+
 def canUnlockAll(boxes):
     """
     Determines if all boxes can be unlocked starting from the first box.
 
     Args:
-    boxes (list of lists): A list where each element is a list of keys contained in that box.
+    boxes (list of lists): A list where each element
+    is a list of keys contained in that box.
 
     Returns:
     bool: True if all boxes can be unlocked, False otherwise.
@@ -32,11 +37,12 @@ def canUnlockAll(boxes):
     opened = [False] * len(boxes)  # Track which boxes have been opened
     opened[0] = True  # The first box is open
     keys = append_lst_ls(keys, boxes[0])  # Add keys from the first box
-    
+
     for key in keys:
         if not opened[key]:  # Only try to open unopened boxes
             opened[key] = True  # Mark the box as opened
-            keys = append_lst_ls(keys, boxes[key])  # Add keys from the newly opened box
-    
+            # Add keys from the newly opened box
+            keys = append_lst_ls(keys, boxes[key])
+
     # Check if all boxes are opened
     return all(opened)
