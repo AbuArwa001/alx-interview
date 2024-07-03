@@ -6,8 +6,8 @@ Module will Check if all boxes can be opened
 
 def append_lst_ls(my_list, element_to_add):
     """
-    Appends elements from element_to_add to my_list if they are
-    not already in my_list and are not zero.
+    Appends elements from element_to_add to my_list
+    if they are not already in my_list and are not zero.
 
     Args:
     my_list (list): The list to which elements will be added.
@@ -32,14 +32,24 @@ def canUnlockAll(boxes):
 
     Returns:
     bool: True if all boxes can be unlocked, False otherwise.
+
+    Raises:
+    TypeError: If boxes is not a list of lists.
     """
+    if not isinstance(boxes, list) or not all(
+        isinstance(box, list) for box in boxes
+    ):
+        raise TypeError("boxes must be a list of lists")
+
     keys = [0]  # Start with the key to the first box (0)
     opened = [False] * len(boxes)  # Track which boxes have been opened
     opened[0] = True  # The first box is open
     keys = append_lst_ls(keys, boxes[0])  # Add keys from the first box
 
     for key in keys:
-        if not opened[key]:  # Only try to open unopened boxes
+        if (
+            key < len(boxes) and not opened[key]
+        ):  # Only try to open unopened boxes within bounds
             opened[key] = True  # Mark the box as opened
             # Add keys from the newly opened box
             keys = append_lst_ls(keys, boxes[key])
