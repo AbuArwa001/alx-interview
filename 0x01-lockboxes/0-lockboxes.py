@@ -34,7 +34,6 @@ def canUnlockAll(boxes):
     keys = append_lst_ls(keys, boxes[0])  # Add keys from the first box
     
     for key in keys:
-        print(keys)
         if not opened[key]:  # Only try to open unopened boxes
             opened[key] = True  # Mark the box as opened
             keys = append_lst_ls(keys, boxes[key])  # Add keys from the newly opened box
