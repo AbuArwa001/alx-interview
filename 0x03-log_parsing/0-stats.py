@@ -38,36 +38,36 @@ def signal_handler(sig, frame):
     print_statistics()
     sys.exit(0)
 
+if __name__ == "__main__":
+    # Set up the signal handler for keyboard interruption
+    signal.signal(signal.SIGINT, signal_handler)
 
-# Set up the signal handler for keyboard interruption
-signal.signal(signal.SIGINT, signal_handler)
+    try:
+        for line in sys.stdin:
+            parts = line.split()
+            # print(f"Line: {parts}")
+            if len(parts) < 7:
+                continue
 
-try:
-    for line in sys.stdin:
-        parts = line.split()
-        # print(f"Line: {parts}")
-        if len(parts) < 7:
-            continue
+            # Extracting the file size and status code from the line
+            try:
+                status_code = int(parts[-2])
+                file_size = int(parts[-1])
+            except (ValueError, IndexError):
+                continue
 
-        # Extracting the file size and status code from the line
-        try:
-            status_code = int(parts[-2])
-            file_size = int(parts[-1])
-        except (ValueError, IndexError):
-            continue
+            # Updating metrics
+            total_size += file_size
+            if status_code in status_counts:
+                status_counts[status_code] += 1
 
-        # Updating metrics
-        total_size += file_size
-        if status_code in status_counts:
-            status_counts[status_code] += 1
+            line_count += 1
 
-        line_count += 1
+            # Print statistics every 10 lines
+            if line_count % 10 == 0:
+                print_statistics()
 
-        # Print statistics every 10 lines
-        if line_count % 10 == 0:
-            print_statistics()
-
-except KeyboardInterrupt:
-    # Handle keyboard interruption gracefully
-    print_statistics()
-    sys.exit(0)
+    except KeyboardInterrupt:
+        # Handle keyboard interruption gracefully
+        print_statistics()
+        sys.exit(0)
