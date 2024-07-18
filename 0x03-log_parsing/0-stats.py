@@ -5,6 +5,7 @@ log parsing
 
 import sys
 import re
+import signal
 
 
 def output(log: dict) -> None:
@@ -28,6 +29,14 @@ if __name__ == "__main__":
         str(code): 0 for code in [
             200, 301, 400, 401, 403, 404, 405, 500]}
 
+    def signal_handler(sig, frame):
+        """
+        Signal handler to catch keyboard interruption and print statistics
+        """
+        output(log)
+        sys.exit(0)
+
+    signal.signal(signal.SIGINT, signal_handler)
     try:
         for line in sys.stdin:
             line = line.strip()
