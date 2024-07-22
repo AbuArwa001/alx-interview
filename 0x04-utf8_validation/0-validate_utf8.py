@@ -3,33 +3,36 @@
 Module containing validUTF8 and isUtf8  function
 file for testing
 """
-import math
-
-
-def isUtf8(i: int) -> bool:
-    """
-    Function checking if the number has only 8 least significant bits
-    containing validateUTF* function
-    file for testing
-    """
-    count = 0
-    for _ in range(32):
-        i = math.floor(i/2)
-        # print(i)
-        count += 1
-        if i < 1:
-            break
-    # print(count)
-    return count <= 8
 
 
 def validUTF8(data):
     """
-    Function Return true if a list has all utf8 chars
+    Determine if a given data set represents a valid UTF-8 encoding.
+
+    Args:
+        data (List[int]): The list of integers to validate.
+
+    Returns:
+        bool: True if data is a valid UTF-8 encoding, else False.
     """
-    for i in data:
-        if isUtf8(i):
-            continue
+    def is_valid_byte(byte, mask, bits_to_match):
+        return byte & mask == bits_to_match
+
+    n_bytes = 0
+
+    for num in data:
+        if n_bytes == 0:
+            if num >> 5 == 0b110:
+                n_bytes = 1
+            elif num >> 4 == 0b1110:
+                n_bytes = 2
+            elif num >> 3 == 0b11110:
+                n_bytes = 3
+            elif num >> 7:
+                return False
         else:
-            return False
-    return True
+            if not is_valid_byte(num, 0b11000000, 0b10000000):
+                return False
+            n_bytes -= 1
+
+    return n_bytes == 0
