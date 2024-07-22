@@ -5,6 +5,7 @@ file for testing
 """
 import math
 
+
 def isUtf8(i: int) -> bool:
     """
     Function checking if the number has only 8 least significant bits
@@ -20,6 +21,8 @@ def isUtf8(i: int) -> bool:
             break
     # print(count)
     return count <= 8
+
+
 def validUTF8(data):
     """
     Function Return true if a list has all utf8 chars
