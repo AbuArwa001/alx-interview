@@ -19,8 +19,6 @@ def validUTF8(data):
         return byte & mask == bits_to_match
 
     n_bytes = 0
-    # if len(data) == 1 and data[0] >> 7 == 0:
-    #     return True
     for num in data:
         if n_bytes == 0:
             if num >> 5 == 0b110:
@@ -29,9 +27,9 @@ def validUTF8(data):
                 n_bytes = 2
             elif num >> 3 == 0b11110:
                 n_bytes = 3
-            elif num >> 7 and len(data) == 1:
-                return True
-            elif num >> 7:
+            elif num >> 7 == 0:
+                continue
+            else:
                 return False
         else:
             if not is_valid_byte(num, 0b11000000, 0b10000000):
