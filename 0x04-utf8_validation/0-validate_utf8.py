@@ -21,6 +21,8 @@ def validUTF8(data):
     n_bytes = 0
     for num in data:
         if n_bytes == 0:
+            if num >> 6 == 0b10:
+                return False
             if num >> 5 == 0b110:
                 n_bytes = 1
             elif num >> 4 == 0b1110:
