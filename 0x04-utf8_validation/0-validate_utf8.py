@@ -19,7 +19,13 @@ def validUTF8(data):
         return byte & mask == bits_to_match
 
     n_bytes = 0
+
     for num in data:
+        # Mask to get the first 8 bits
+        num &= 0xFF
+        # Print 8 bits for better readability
+        # print("{:08b}".format(num))
+
         if n_bytes == 0:
             if num >> 5 == 0b110:
                 n_bytes = 1
