@@ -1,6 +1,8 @@
 #!/usr/bin/node
 
 const request = require('request');
+const { promisify } = require('util');
+const requestPromise = promisify(request);
 
 // Check if the Movie ID is provided as a command-line argument
 if (process.argv.length !== 3) {
@@ -12,22 +14,21 @@ const movieId = process.argv[2];
 const url = `https://swapi-api.alx-tools.com/api/films/${movieId}`;
 
 // Function to get character names
-const getCharacterNames = (characters) => {
-  characters.forEach((characterUrl) => {
-    request(characterUrl, (error, response, body) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      const character = JSON.parse(body);
+const getCharacterNames = async (characters) => {
+  for (let index = 0; index < characters.length; index++) {
+    const characterUrl = characters[index];
+    try {
+      const response = await requestPromise(characterUrl);
+      const character = JSON.parse(response.body);
       console.log(character.name);
-    });
-  });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };
 
 // Make the request to the Star Wars API
-request(url, (error, response, body) => {
+request(url, async (error, response, body) => {
   if (error) {
     console.error(error);
     return;
@@ -39,5 +40,5 @@ request(url, (error, response, body) => {
   }
 
   const film = JSON.parse(body);
-  getCharacterNames(film.characters);
+  await getCharacterNames(film.characters);
 });
