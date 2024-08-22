@@ -7,17 +7,20 @@ Module To Give Change
 def makeChange(coins, total):
     """
     Given a pile of coins of different values,
-    determine the fewest number of coins needed to meet a given amount total.
+    determine the fewest number of coins needed
+    to meet a given amount total.
+    Returns the fewest number of coins,
+    or -1 if the total cannot be met by any combination of coins.
     """
-    remainder = total
-    coins_count = 0
-    if total == 0:
+    if total <= 0:
         return 0
-    for coin in reversed(sorted(coins)):
-        while coin <= remainder:
-            remainder -= coin
-            coins_count += 1
-    if remainder == 0:
-        return coins_count
-    else:
-        return -1
+
+    # Initialize a list to store the minimum coins needed for each amount
+    dp = [float('inf')] * (total + 1)
+    dp[0] = 0
+
+    for coin in coins:
+        for amount in range(coin, total + 1):
+            dp[amount] = min(dp[amount], dp[amount - coin] + 1)
+
+    return dp[total] if dp[total] != float('inf') else -1
