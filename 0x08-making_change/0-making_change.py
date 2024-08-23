@@ -7,17 +7,16 @@ Module To Give Change
 def makeChange(coins, total):
     """
     Given a pile of coins of different values,
-    determine the fewest number of coins needed to meet a given amount total.
+    determine the fewest number of coins needed to meet a given total total.
     """
-    coins.sort(reverse=True)  # Sort coins in descending order
-    coin_count = 0
-    div_n1 = int(total/2)
-
-    if div_n1 in coins and total not in coins:
-        return 2
-
-    for coin in coins:
-        while total >= coin:
-            total -= coin
-            coin_count += 1
-    return coin_count if total == 0 else -1
+    dp = [total + 1] * (total + 1)
+    dp[0] = 0
+    # Solve every subproblem from 1 to total
+    for i in range(1, total + 1):
+        # For each coin we are given
+        for j in range(0, len(coins)):
+            # If it is less than or equal to the sub problem total
+            if coins[j] <= i:
+                # Try it. See if it gives us a more optimal solution
+                dp[i] = min(dp[i], dp[i - coins[j]] + 1)
+    return -1 if dp[total] > total else dp[total]
