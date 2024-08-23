@@ -11,7 +11,7 @@ def makeChange(coins, total):
     """
     remainder = total
     coins_count = 0
-    if total == 0:
+    if total <= 0:
         return 0
     for coin in reversed(sorted(coins)):
         while coin <= remainder:
