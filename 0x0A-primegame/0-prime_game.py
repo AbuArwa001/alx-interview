@@ -2,6 +2,8 @@
 """
 prime_game module
 """
+
+
 def sieve_of_eratosthenes(max_n):
     """
     Returns a list of prime numbers up to max_n
